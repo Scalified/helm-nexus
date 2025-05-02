@@ -1,9 +1,22 @@
 apiVersion: v2
 name: nexus
-version: 0.0.1
-appVersion: "3.63.0"
+version: 0.0.6
+appVersion: "3.79.1"
+kubeVersion: ">= 1.13.0"
 description: A Helm chart for Sonatype Nexus Repository Manager
+type: application
+home: https://github.com/Scalified/helm-nexus
+icon: https://scalified.github.io/helm-nexus/icon.png
 maintainers:
   - name: Vladyslav Baidak
     email: vld.x@hotmail.com
     url: https://scalified.com
+keywords:
+  - sonatype
+  - nexus
+  - artifacts
+  - repository
+  - dependency
+  - management
+annotations:
+  artifacthub.io/category: integration-delivery
