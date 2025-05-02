@@ -1,7 +1,7 @@
 apiVersion: v2
 name: nexus
-version: 0.0.1
-appVersion: "3.63.0"
+version: 0.0.3
+appVersion: "3.79.1"
 description: A Helm chart for Sonatype Nexus Repository Manager
 maintainers:
   - name: Vladyslav Baidak
