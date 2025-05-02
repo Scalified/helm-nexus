@@ -10,14 +10,11 @@ image:
 
 resources:
   requests:
-    memory: 4000Mi
+    memory: 4Gi
 
-persistence:
-  enabled: true
-  volumeName: nexus
-  claimName: nexus
-  mountPath: /nexus-data
-  subPath: nexus-data
+volumeMounts: null
+
+volumes: null
 
 hostname: nexus
 
@@ -26,4 +23,4 @@ service:
   port: 8081
 
 ingress:
-  host: nexus.example.com
+  host: null
