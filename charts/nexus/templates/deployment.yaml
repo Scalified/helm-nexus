@@ -44,13 +44,13 @@ spec:
             failureThreshold: 3
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+{{- if .Values.volumeMounts }}
           volumeMounts:
-            - name: nexus
-              mountPath: {{ .Values.persistence.mountPath }}
-              subPath: {{ .Values.persistence.subPath }}
+{{ toYaml .Values.volumeMounts | indent 12 }}
+{{- end }}
       hostname: {{ .Values.hostname }}
       restartPolicy: Always
+{{- if .Values.volumes }}
       volumes:
-        - name: {{ .Values.persistence.volumeName }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.persistence.claimName }}
+{{ toYaml .Values.volumes | indent 8 }}
+{{- end }}
