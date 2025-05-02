@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "nameOverride": {
+      "type": "string",
+      "default": ""
+    },
+    "fullnameOverride": {
+      "type": "string",
+      "default": ""
+    },
+    "replicaCount": {
+      "type": "integer",
+      "default": 1,
+      "minimum": 1
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string",
+          "default": "sonatype/nexus3"
+        },
+        "tag": {
+          "type": "string",
+          "default": ""
+        },
+        "pullPolicy": {
+          "type": "string",
+          "default": "IfNotPresent",
+          "enum": ["Always", "IfNotPresent", "Never"]
+        }
+      },
+      "required": ["repository"]
+    },
+    "resources": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "object",
+          "properties": {
+            "memory": {
+              "type": "string",
+              "default": "4Gi",
+              "pattern": "^[0-9]+(Ei|Pi|Ti|Gi|Mi|Ki|E|P|T|G|M|K)?$"
+            }
+          },
+          "required": ["memory"]
+        }
+      }
+    },
+    "volumeMounts": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "mountPath": { "type": "string" },
+          "subPath": { "type": "string" }
+        },
+        "required": ["name", "mountPath"]
+      },
+      "default": null
+    },
+    "volumes": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "persistentVolumeClaim": {
+            "type": "object",
+            "properties": {
+              "claimName": { "type": "string" }
+            },
+            "required": ["claimName"]
+          }
+        },
+        "required": ["name", "persistentVolumeClaim"]
+      },
+      "default": null
+    },
+    "hostname": {
+      "type": "string",
+      "default": "nexus"
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "default": "ClusterIP",
+          "enum": ["ClusterIP", "NodePort", "LoadBalancer", "ExternalName"]
+        },
+        "port": {
+          "type": "integer",
+          "default": 8081
+        }
+      },
+      "required": ["type", "port"]
+    },
+    "ingress": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": ["string", "null"],
+          "default": null
+        }
+      },
+      "default": {}
+    }
+  },
+  "required": ["image", "service"]
+}

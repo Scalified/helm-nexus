@@ -1,7 +1,8 @@
 # Nexus Helm Chart
 
-[![release](https://img.shields.io/github/v/release/Scalified/helm-nexus?style=flat-square)](https://github.com/Scalified/helm-nexus/releases/latest)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Scalified/helm-nexus/blob/master/LICENSE)
+[![Release](https://img.shields.io/github/v/release/Scalified/helm-nexus?style=flat-square)](https://github.com/Scalified/helm-nexus/releases/latest)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/scalified-nexus)](https://artifacthub.io/packages/helm/scalified-nexus/nexus)
 
 A Helm chart for Sonatype Nexus Repository Manager
 
@@ -12,8 +13,14 @@ A Helm chart for Sonatype Nexus Repository Manager
 ## Installation
 
 ```bash
-helm repo add nexus https://scalified.github.io/helm-nexus/
-helm upgrade --install nexus helm-nexus/helm-nexus --create-namespace --namespace infrastructure
+helm repo add scalified-nexus https://scalified.github.io/helm-nexus/
+helm upgrade --install nexus scalified-nexus/nexus --create-namespace --namespace nexus
+```
+
+## Removal
+
+```bash
+helm delete nexus --namespace nexus
 ```
 
 ## License
