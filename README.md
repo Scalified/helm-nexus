@@ -12,8 +12,14 @@ A Helm chart for Sonatype Nexus Repository Manager
 ## Installation
 
 ```bash
-helm repo add nexus https://scalified.github.io/helm-nexus/
-helm upgrade --install nexus helm-nexus/helm-nexus --create-namespace --namespace infrastructure
+helm repo add scalified-nexus https://scalified.github.io/helm-nexus/
+helm upgrade --install nexus scalified-nexus/nexus --create-namespace --namespace nexus
+```
+
+## Removal
+
+```bash
+helm delete nexus --namespace nexus
 ```
 
 ## License
