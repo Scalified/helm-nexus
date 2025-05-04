@@ -5,6 +5,32 @@ entries:
       artifacthub.io/category: integration-delivery
     apiVersion: v2
     appVersion: 3.79.1
+    created: "2025-05-04T16:14:46.48754561Z"
+    description: A Helm chart for Sonatype Nexus Repository Manager
+    digest: 442b212e94456c9ace6a57f9e10318da1616cc1aaab713a9f9d45fe2ab29f9b8
+    home: https://github.com/Scalified/helm-nexus
+    icon: https://scalified.github.io/helm-nexus/icon.png
+    keywords:
+    - sonatype
+    - nexus
+    - artifacts
+    - repository
+    - dependency
+    - management
+    kubeVersion: '>= 1.13.0'
+    maintainers:
+    - email: vld.x@hotmail.com
+      name: Vladyslav Baidak
+      url: https://scalified.com
+    name: nexus
+    type: application
+    urls:
+    - https://github.com/Scalified/helm-nexus/releases/download/nexus-0.0.10/nexus-0.0.10.tgz
+    version: 0.0.10
+  - annotations:
+      artifacthub.io/category: integration-delivery
+    apiVersion: v2
+    appVersion: 3.79.1
     created: "2025-05-04T16:10:24.418528836Z"
     description: A Helm chart for Sonatype Nexus Repository Manager
     digest: d7d9858cf7f7f6bb399cdec371f21289ad848eaebcbb2ec290808a8adbb09261
@@ -157,4 +183,4 @@ entries:
     urls:
     - https://github.com/Scalified/helm-nexus/releases/download/nexus-0.0.1/nexus-0.0.1.tgz
     version: 0.0.1
-generated: "2025-05-04T16:10:24.418562068Z"
+generated: "2025-05-04T16:14:46.487585996Z"
