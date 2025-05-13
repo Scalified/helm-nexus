@@ -99,6 +99,11 @@
       "default": "nexus",
       "description": "Hostname to assign to the Nexus pod/container"
     },
+    "port": {
+      "type": "integer",
+      "default": 8081,
+      "description": "Default port for the Nexus HTTP service (repository manager UI and API)"
+    },
     "service": {
       "type": "object",
       "description": "Kubernetes service configuration for exposing Nexus",
@@ -109,22 +114,109 @@
           "enum": ["ClusterIP", "NodePort", "LoadBalancer", "ExternalName"],
           "description": "Kubernetes service type"
         },
-        "port": {
-          "type": "integer",
-          "default": 8081,
-          "description": "Port number the service exposes"
+        "ports": {
+          "type": "array",
+          "description": "List of ports to expose via the service",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "description": "Name of the service port" },
+              "port": { "type": "integer", "description": "Service port number" },
+              "targetPort": { "type": "integer", "description": "Target port on the pod" },
+              "protocol": {
+                "type": "string",
+                "default": "TCP",
+                "enum": ["TCP", "UDP"],
+                "description": "Network protocol used by the service"
+              }
+            },
+            "required": ["name", "port", "targetPort"]
+          }
         }
       },
-      "required": ["type", "port"]
+      "required": ["type", "ports"]
     },
     "ingress": {
       "type": "object",
       "description": "Ingress configuration for exposing Nexus via hostname",
       "properties": {
-        "host": {
-          "type": ["string", "null"],
-          "default": null,
-          "description": "Fully qualified domain name for ingress routing (set to enable ingress)"
+        "className": {
+          "type": "string",
+          "default": "nginx",
+          "description": "Ingress class name (used to select the Ingress controller, e.g., nginx or traefik)"
+        },
+        "tls": {
+          "type": ["array", "null"],
+          "description": "TLS configuration for ingress",
+          "items": {
+            "type": "object",
+            "properties": {
+              "hosts": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "List of hosts for which the TLS certificate is valid"
+              },
+              "secretName": {
+                "type": "string",
+                "description": "Name of the secret containing TLS certificate"
+              }
+            },
+            "required": ["hosts", "secretName"]
+          },
+          "default": null
+        },
+        "rules": {
+          "type": ["array", "null"],
+          "description": "List of ingress rules to configure",
+          "items": {
+            "type": "object",
+            "properties": {
+              "host": { "type": "string", "description": "Hostname for the ingress rule" },
+              "http": {
+                "type": "object",
+                "properties": {
+                  "paths": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "path": { "type": "string", "description": "Path to match in the ingress" },
+                        "pathType": {
+                          "type": "string",
+                          "enum": ["Prefix", "Exact", "ImplementationSpecific"],
+                          "description": "Path matching strategy"
+                        },
+                        "backend": {
+                          "type": "object",
+                          "properties": {
+                            "service": {
+                              "type": "object",
+                              "properties": {
+                                "name": { "type": "string", "description": "Name of the backend service" },
+                                "port": {
+                                  "type": "object",
+                                  "properties": {
+                                    "number": { "type": "integer", "description": "Service port number" }
+                                  },
+                                  "required": ["number"]
+                                }
+                              },
+                              "required": ["name", "port"]
+                            }
+                          },
+                          "required": ["service"]
+                        }
+                      },
+                      "required": ["path", "pathType", "backend"]
+                    }
+                  }
+                },
+                "required": ["paths"]
+              }
+            },
+            "required": ["host", "http"]
+          },
+          "default": null
         }
       },
       "default": {}

@@ -21,20 +21,63 @@ resources:
     memory: 4Gi
 
 # Additional volume mounts for the Nexus container
+# Example:
+# volumeMounts:
+#   - name: nexus
+#     mountPath: /nexus-data
+#     subPath: nexus-data
 volumeMounts: null
 
 # Additional volumes to be mounted into the pod
+# Example:
+# volumes:
+#   - name: nexus
+#     persistentVolumeClaim:
+#       claimName: nexus
 volumes: null
 
 # Hostname used for the Nexus pod/container
 hostname: nexus
 
+# Default port for the Nexus HTTP service (repository manager UI and API)
+port: 8081
+
+# Configuration for the Kubernetes Service exposing Nexus
+# If set to null, no Service resource will be created
 service:
   # Kubernetes service type (e.g., ClusterIP, NodePort, LoadBalancer)
   type: ClusterIP
-  # Port exposed by the Nexus service
-  port: 8081
+  # List of ports to expose via the service
+  # Each entry defines a port name, external service port, internal container target port, and protocol
+  ports:
+    - name: http
+      port: 8081
+      targetPort: 8081
+      protocol: TCP
 
+# Configuration for Ingress to expose Nexus via HTTP/HTTPS
+# If set to null, no Ingress resource will be created
 ingress:
-  # Hostname to be used for Ingress resource (set to enable Ingress)
-  host: null
+  # Ingress class name (used to select the Ingress controller, e.g., nginx or traefik)
+  className: nginx
+  # TLS configuration for the ingress. Set to null to disable
+  # Example:
+  # tls:
+  #   - hosts:
+  #       - nexus.example.com
+  #     secretName: nexus-tls
+  tls: null
+  # List of ingress rules. If null or empty, no ingress will be created
+  # Example:
+  # rules:
+  #   - host: nexus.example.com
+  #     http:
+  #       paths:
+  #         - path: /
+  #           pathType: Prefix
+  #           backend:
+  #             service:
+  #               name: nexus
+  #               port:
+  #                 number: 8081
+  rules: null

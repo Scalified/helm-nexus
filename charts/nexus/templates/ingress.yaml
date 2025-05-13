@@ -1,4 +1,4 @@
-{{- if .Values.ingress.host }}
+{{- if .Values.ingress -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -6,15 +6,13 @@ metadata:
   labels:
     {{- include "nexus.labels" . | nindent 4 }}
 spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- if .Values.ingress.tls }}
+  tls:
+{{ toYaml .Values.ingress.tls | indent 4 }}
+  {{- end }}
+  {{- if .Values.ingress.rules }}
   rules:
-    - host: {{ .Values.ingress.host }}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: nexus
-                port:
-                  number: {{ .Values.service.port }}
+{{ toYaml .Values.ingress.rules | indent 4 }}
+  {{- end }}
 {{- end }}

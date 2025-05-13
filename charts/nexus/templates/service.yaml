@@ -1,3 +1,4 @@
+{{- if .Values.service -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,8 +9,8 @@ spec:
   selector:
     {{- include "nexus.selectorLabels" . | nindent 4 }}
   type: {{ .Values.service.type }}
+  {{- if .Values.service.ports }}
   ports:
-    - name: http
-      port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.port }}
-      protocol: TCP
+{{ toYaml .Values.service.ports | indent 4 }}
+  {{- end }}
+{{- end }}

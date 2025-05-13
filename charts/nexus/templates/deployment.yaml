@@ -20,14 +20,18 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.service }}
           ports:
-            - containerPort: {{ .Values.service.port }}
-              name: http
-              protocol: TCP
+            {{- range .Values.service.ports }}
+            - containerPort: {{ .targetPort }}
+              name: {{ .name }}
+              protocol: {{ .protocol }}
+            {{- end }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.service.port }}
+              port: {{ .Values.port }}
               scheme: HTTP
             initialDelaySeconds: 60
             periodSeconds: 20
@@ -37,7 +41,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: {{ .Values.service.port }}
+              port: {{ .Values.port }}
               scheme: HTTP
             initialDelaySeconds: 30
             periodSeconds: 15
