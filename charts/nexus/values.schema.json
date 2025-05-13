@@ -4,46 +4,56 @@
   "properties": {
     "nameOverride": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "description": "Override the chart name used in Kubernetes resource names"
     },
     "fullnameOverride": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "description": "Override the full name used for Kubernetes resources"
     },
     "replicaCount": {
       "type": "integer",
       "default": 1,
-      "minimum": 1
+      "minimum": 1,
+      "description": "Number of Nexus pod replicas to deploy"
     },
     "image": {
       "type": "object",
+      "description": "Configuration for the Nexus container image",
       "properties": {
         "repository": {
           "type": "string",
-          "default": "sonatype/nexus3"
+          "default": "sonatype/nexus3",
+          "description": "Docker image repository for the Nexus container"
         },
         "tag": {
           "type": "string",
-          "default": ""
+          "default": "",
+          "description": "Image tag (leave blank for chart default or latest)"
         },
         "pullPolicy": {
           "type": "string",
           "default": "IfNotPresent",
-          "enum": ["Always", "IfNotPresent", "Never"]
+          "enum": ["Always", "IfNotPresent", "Never"],
+          "description": "Image pull policy"
         }
       },
       "required": ["repository"]
     },
     "resources": {
       "type": "object",
+      "description": "Resource requests and limits for the Nexus container",
       "properties": {
         "requests": {
           "type": "object",
+          "description": "Minimum resources requested for the container",
           "properties": {
             "memory": {
               "type": "string",
               "default": "4Gi",
-              "pattern": "^[0-9]+(Ei|Pi|Ti|Gi|Mi|Ki|E|P|T|G|M|K)?$"
+              "pattern": "^[0-9]+(Ei|Pi|Ti|Gi|Mi|Ki|E|P|T|G|M|K)?$",
+              "description": "Amount of memory to request (e.g., 512Mi, 2Gi)"
             }
           },
           "required": ["memory"]
@@ -55,57 +65,66 @@
       "items": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
-          "mountPath": { "type": "string" },
-          "subPath": { "type": "string" }
+          "name": { "type": "string", "description": "Name of the volume" },
+          "mountPath": { "type": "string", "description": "Path in the container where the volume will be mounted" },
+          "subPath": { "type": "string", "description": "Optional sub-path inside the volume to mount" }
         },
         "required": ["name", "mountPath"]
       },
-      "default": null
+      "default": null,
+      "description": "Additional volume mounts for the Nexus container"
     },
     "volumes": {
       "type": ["array", "null"],
       "items": {
         "type": "object",
         "properties": {
-          "name": { "type": "string" },
+          "name": { "type": "string", "description": "Volume name" },
           "persistentVolumeClaim": {
             "type": "object",
+            "description": "PersistentVolumeClaim to use for the volume",
             "properties": {
-              "claimName": { "type": "string" }
+              "claimName": { "type": "string", "description": "Name of the existing PersistentVolumeClaim" }
             },
             "required": ["claimName"]
           }
         },
         "required": ["name", "persistentVolumeClaim"]
       },
-      "default": null
+      "default": null,
+      "description": "Additional volumes to be mounted into the pod"
     },
     "hostname": {
       "type": "string",
-      "default": "nexus"
+      "default": "nexus",
+      "description": "Hostname to assign to the Nexus pod/container"
     },
     "service": {
       "type": "object",
+      "description": "Kubernetes service configuration for exposing Nexus",
       "properties": {
         "type": {
           "type": "string",
           "default": "ClusterIP",
-          "enum": ["ClusterIP", "NodePort", "LoadBalancer", "ExternalName"]
+          "enum": ["ClusterIP", "NodePort", "LoadBalancer", "ExternalName"],
+          "description": "Kubernetes service type"
         },
         "port": {
           "type": "integer",
-          "default": 8081
+          "default": 8081,
+          "description": "Port number the service exposes"
         }
       },
       "required": ["type", "port"]
     },
     "ingress": {
       "type": "object",
+      "description": "Ingress configuration for exposing Nexus via hostname",
       "properties": {
         "host": {
           "type": ["string", "null"],
-          "default": null
+          "default": null,
+          "description": "Fully qualified domain name for ingress routing (set to enable ingress)"
         }
       },
       "default": {}

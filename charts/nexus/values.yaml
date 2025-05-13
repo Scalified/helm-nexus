@@ -1,26 +1,40 @@
+# Override the name of the chart (used in naming resources)
 nameOverride: ""
+
+# Override the full name (default is the chart name + release name)
 fullnameOverride: ""
 
+# Number of replicas/pods to run
 replicaCount: 1
 
 image:
+  # Docker image repository for Nexus
   repository: sonatype/nexus3
+  # Image tag to use (leave empty to use default from Chart or latest)
   tag: ""
+  # Image pull policy (e.g., Always, IfNotPresent, Never)
   pullPolicy: IfNotPresent
 
 resources:
   requests:
+    # Minimum amount of memory requested for the container
     memory: 4Gi
 
+# Additional volume mounts for the Nexus container
 volumeMounts: null
 
+# Additional volumes to be mounted into the pod
 volumes: null
 
+# Hostname used for the Nexus pod/container
 hostname: nexus
 
 service:
+  # Kubernetes service type (e.g., ClusterIP, NodePort, LoadBalancer)
   type: ClusterIP
+  # Port exposed by the Nexus service
   port: 8081
 
 ingress:
+  # Hostname to be used for Ingress resource (set to enable Ingress)
   host: null
