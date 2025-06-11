@@ -140,6 +140,12 @@
       "type": "object",
       "description": "Ingress configuration for exposing Nexus via hostname",
       "properties": {
+        "annotations": {
+          "type": ["object", "null"],
+          "description": "Annotations to customize the ingress controller behavior",
+          "additionalProperties": { "type": "string" },
+          "default": null
+        },
         "className": {
           "type": "string",
           "default": "nginx",

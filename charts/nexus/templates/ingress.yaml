@@ -5,6 +5,10 @@ metadata:
   name: {{ include "nexus.fullname" . }}
   labels:
     {{- include "nexus.labels" . | nindent 4 }}
+  {{- if .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+  {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   {{- if .Values.ingress.tls }}
