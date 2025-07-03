@@ -1,9 +1,9 @@
 apiVersion: v2
 name: nexus
-version: 3.81.0
-appVersion: "3.81.0"
+version: 3.81.1
+appVersion: "3.81.1"
 kubeVersion: ">= 1.13.0"
-description: A Helm chart for Sonatype Nexus Repository Manager
+description: Sonatype Nexus Repository Manager Helm Chart
 type: application
 home: https://github.com/Scalified/helm-nexus
 icon: https://scalified.github.io/helm-nexus/icon.png
