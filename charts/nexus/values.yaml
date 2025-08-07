@@ -4,80 +4,83 @@ nameOverride: ""
 # Override the full name (default is the chart name + release name)
 fullnameOverride: ""
 
-# Number of replicas/pods to run
-replicaCount: 1
+# Nexus configuration
+nexus:
+  # Metadata annotations for the Nexus deployment
+  # Example:
+  # annotations:
+  #   example.com/annotation: "value"
+  annotations: {}
 
-image:
-  # Docker image repository for Nexus
-  repository: sonatype/nexus3
-  # Image tag to use (leave empty to use default from Chart or latest)
-  tag: ""
-  # Image pull policy (e.g., Always, IfNotPresent, Never)
-  pullPolicy: IfNotPresent
+  # Number of replicas/pods to run (should typically be 1)
+  replicaCount: 1
 
-resources:
-  requests:
-    # Minimum amount of memory requested for the container
-    memory: 4Gi
+  # Nexus containers configuration
+  containers:
+    # Nexus container configuration
+    nexus:
+      image:
+        # Docker image repository for Nexus
+        repository: sonatype/nexus3
+        # Image tag to use (leave empty to use default from Chart or latest)
+        tag: ""
+        # Image pull policy (e.g., Always, IfNotPresent, Never)
+        pullPolicy: IfNotPresent
 
-# Additional volume mounts for the Nexus container
-# Example:
-# volumeMounts:
-#   - name: nexus
-#     mountPath: /nexus-data
-#     subPath: nexus-data
-volumeMounts: null
+      # Environment variables for Nexus container
+      env: []
 
-# Additional volumes to be mounted into the pod
-# Example:
-# volumes:
-#   - name: nexus
-#     persistentVolumeClaim:
-#       claimName: nexus
-volumes: null
+      resources:
+        requests:
+          # Minimum amount of memory requested for the container
+          memory: 4Gi
 
-# Hostname used for the Nexus pod/container
-hostname: nexus
+      # Additional volume mounts for the Nexus container
+      # Example:
+      # volumeMounts:
+      #   - name: nexus
+      #     mountPath: /nexus-data
+      #     subPath: nexus-data
+      volumeMounts: []
 
-# Default port for the Nexus HTTP service (repository manager UI and API)
-port: 8081
-
-# Configuration for the Kubernetes Service exposing Nexus
-# If set to null, no Service resource will be created
-service:
-  # Kubernetes service type (e.g., ClusterIP, NodePort, LoadBalancer)
-  type: ClusterIP
-  # List of ports to expose via the service
-  # Each entry defines a port name, external service port, internal container target port, and protocol
-  ports:
-    - name: http
+      # Default port for the Nexus HTTP service (repository manager UI and API)
       port: 8081
-      targetPort: 8081
-      protocol: TCP
 
-# Configuration for Ingress to expose Nexus via HTTP/HTTPS
-# If set to null, no Ingress resource will be created
-ingress:
-  # Annotations to customize the behavior of the ingress controller.
-  # Leave as null to disable.
+  # Hostname used for the Nexus pod/container
+  hostname: nexus
+
+  # Additional volumes to be mounted into the pod
+  # Example:
+  # volumes:
+  #   - name: nexus
+  #     persistentVolumeClaim:
+  #       claimName: nexus
+  volumes: []
+
+  # Configuration for the Kubernetes Service exposing Nexus
+  service:
+    # Kubernetes service type (e.g., ClusterIP, NodePort, LoadBalancer)
+    type: ClusterIP
+    # List of ports to expose via the service
+    # Each entry defines a port name, external service port, internal container target port, and protocol
+    ports:
+      - name: http
+        port: 8081
+        targetPort: 8081
+        protocol: TCP
+
+  # Configuration for Ingress to expose Nexus via HTTP/HTTPS
   # Example:
   # annotations:
   #   nginx.ingress.kubernetes.io/proxy-body-size: "100m"
   #   nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
   #   nginx.ingress.kubernetes.io/configuration-snippet: |
   #     more_set_headers "X-Content-Type-Options: nosniff";
-  annotations: null
-  # Ingress class name (used to select the Ingress controller, e.g., nginx or traefik)
-  className: nginx
-  # TLS configuration for the ingress. Set to null to disable
-  # Example:
+  # className: nginx
   # tls:
   #   - hosts:
   #       - nexus.example.com
   #     secretName: nexus-tls
-  tls: null
-  # List of ingress rules. If null or empty, no ingress will be created
-  # Example:
   # rules:
   #   - host: nexus.example.com
   #     http:
@@ -89,4 +92,4 @@ ingress:
   #               name: nexus
   #               port:
   #                 number: 8081
-  rules: null
+  ingress: {}

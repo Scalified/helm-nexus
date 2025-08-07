@@ -1,0 +1,24 @@
+{{- if .Values.nexus.ingress }}
+{{- with .Values.nexus.ingress }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "nexus.fullname" $ }}
+  labels:
+    {{- include "nexus.labels" $ | nindent 4 }}
+  {{- if .annotations }}
+  annotations:
+    {{- toYaml .annotations | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: {{ .className | default "nginx" }}
+  {{- if .tls }}
+  tls:
+    {{- toYaml .tls | nindent 4 }}
+  {{- end }}
+  {{- if .rules }}
+  rules:
+    {{- toYaml .rules | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
