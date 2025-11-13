@@ -1,8 +1,8 @@
 # Sonatype Nexus Repository Manager Helm Chart
 
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Scalified/helm-nexus/blob/master/LICENSE)
 [![Release](https://img.shields.io/github/v/release/Scalified/helm-nexus?style=flat-square)](https://github.com/Scalified/helm-nexus/releases/latest)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/scalified-nexus)](https://artifacthub.io/packages/helm/scalified-nexus/nexus)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Scalified/helm-nexus/blob/master/LICENSE)
 
 ## Requirements
 
