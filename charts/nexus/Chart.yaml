@@ -1,7 +1,7 @@
 apiVersion: v2
 name: nexus
-version: 3.87.0
-appVersion: "3.87.0"
+version: 3.87.1
+appVersion: "3.87.1"
 kubeVersion: ">= 1.13.0"
 description: Sonatype Nexus Repository Manager Helm Chart
 type: application
