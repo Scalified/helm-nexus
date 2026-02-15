@@ -1,14 +1,15 @@
 name: Sync Helm chart version
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 2 * * *"
 
-permissions:
-  contents: write
-
+    
 jobs:
   sync-chart-version:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Sync chart version
