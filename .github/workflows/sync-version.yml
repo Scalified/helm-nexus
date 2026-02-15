@@ -1,7 +1,9 @@
 name: Sync Helm chart version
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - "bug/4"
   schedule:
     - cron: "0 2 * * *"
 
