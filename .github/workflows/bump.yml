@@ -1,6 +1,9 @@
 name: Bump Helm chart
 
 on:
+  push:
+    branches:
+      - master
   schedule:
     - cron: "0 2 * * *"
 
@@ -13,6 +16,7 @@ jobs:
       - name: Bump chart
         uses: Scalified/helm-chart-bump-action@v1
         with:
+          token: "${{ secrets.GH_TOKEN }}"
           dockerhub-namespace: sonatype
           dockerhub-repository: nexus3
           chart-file-path: charts/nexus/Chart.yaml
