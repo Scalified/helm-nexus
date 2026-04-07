@@ -1,18 +1,16 @@
-{{- if .Values.nexus.service }}
-{{- with .Values.nexus.service }}
+{{- if .Values.nexus.services }}
+{{- range .Values.nexus.services }}
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "nexus.fullname" $ }}
-  labels:
-    {{- include "nexus.labels" $ | nindent 4 }}
+  name: {{ include "nexus.fullname" $ }}{{- if .name }}-{{ .name }}{{- end }}
+  labels: {{- include "nexus.labels" $ | nindent 4 }}
 spec:
-  selector:
-    {{- include "nexus.selectorLabels" $ | nindent 4 }}
+  selector: {{- include "nexus.selectorLabels" $ | nindent 4 }}
   type: {{ .type }}
   {{- if .ports }}
-  ports:
-    {{- toYaml .ports | nindent 4 }}
+  ports: {{- toYaml .ports | nindent 4 }}
   {{- end }}
 {{- end }}
 {{- end }}

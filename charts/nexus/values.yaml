@@ -57,17 +57,17 @@ nexus:
   #       claimName: nexus
   volumes: []
 
-  # Configuration for the Kubernetes Service exposing Nexus
-  service:
+  # Configuration for the Kubernetes Services exposing Nexus
+  services:
     # Kubernetes service type (e.g., ClusterIP, NodePort, LoadBalancer)
-    type: ClusterIP
-    # List of ports to expose via the service
-    # Each entry defines a port name, external service port, internal container target port, and protocol
-    ports:
-      - name: http
-        port: 8081
-        targetPort: 8081
-        protocol: TCP
+    - type: ClusterIP
+      # List of ports to expose via the service
+      # Each entry defines a port name, external service port, internal container target port, and protocol
+      ports:
+        - name: nexus
+          port: 8081
+          targetPort: 8081
+          protocol: TCP
 
   # Configuration for Ingress to expose Nexus via HTTP/HTTPS
   # Example:
