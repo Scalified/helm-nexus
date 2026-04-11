@@ -61,6 +61,10 @@ spec:
         {{- end }}
       hostname: {{ .hostname | default "nexus" }}
       restartPolicy: Always
+      securityContext:
+        runAsUser: 200
+        runAsGroup: 200
+        fsGroup: 200
       {{- if .volumes }}
       volumes: {{- toYaml .volumes | nindent 8 }}
       {{- end }}

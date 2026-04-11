@@ -15,16 +15,6 @@ helm repo add scalified-nexus https://scalified.github.io/helm-nexus/
 helm upgrade --install nexus scalified-nexus/nexus --create-namespace --namespace nexus
 ```
 
-# Troubleshooting
-
-## AccessDeniedException on nexus-data Mount
-
-If you encounter an AccessDeniedException when accessing the `/nexus-data` directory, ensure it has the correct ownership:
-
-```bash
-chown -R 200:200 /nexus-data
-```
-
 ---
 
 **Made with ❤️ by [Scalified](http://www.scalified.com)**
