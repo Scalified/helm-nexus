@@ -47,7 +47,7 @@ nexus:
       port: 8081
 
   # Hostname used for the Nexus pod/container
-  hostname: nexus
+  hostname: ""
 
   # Additional volumes to be mounted into the pod
   # Example:

@@ -137,7 +137,7 @@
         "hostname": {
           "type": "string",
           "description": "Hostname used for the Nexus pod/container",
-          "default": "nexus"
+          "default": ""
         },
         "volumes": {
           "type": "array",
