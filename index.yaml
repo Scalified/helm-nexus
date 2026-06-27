@@ -7,6 +7,35 @@ entries:
         fingerprint: 687D9BE990493C58C0CFBEB65A065879383D7E21
         url: https://keybase.io/scalified/pgp_keys.asc
     apiVersion: v2
+    appVersion: 3.93.2
+    created: "2026-06-27T04:44:24.045911915Z"
+    description: Sonatype Nexus Repository Manager Helm Chart
+    digest: c102449f96336103450a4d48efac0fa53f23df2cd0956be74be847f002e6f9b3
+    home: https://github.com/Scalified/helm-nexus
+    icon: https://scalified.github.io/helm-nexus/icon.png
+    keywords:
+    - sonatype
+    - nexus
+    - artifacts
+    - repository
+    - dependency
+    - management
+    kubeVersion: '>= 1.13.0'
+    maintainers:
+    - email: vld.x@hotmail.com
+      name: Vladyslav Baidak
+      url: https://scalified.com
+    name: nexus
+    type: application
+    urls:
+    - https://github.com/Scalified/helm-nexus/releases/download/nexus-3.93.2/nexus-3.93.2.tgz
+    version: 3.93.2
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/signKey: |
+        fingerprint: 687D9BE990493C58C0CFBEB65A065879383D7E21
+        url: https://keybase.io/scalified/pgp_keys.asc
+    apiVersion: v2
     appVersion: 3.93.1
     created: "2026-06-20T05:04:11.152907822Z"
     description: Sonatype Nexus Repository Manager Helm Chart
@@ -966,4 +995,4 @@ entries:
     urls:
     - https://github.com/Scalified/helm-nexus/releases/download/nexus-0.0.1/nexus-0.0.1.tgz
     version: 0.0.1
-generated: "2026-06-20T05:04:11.153537431Z"
+generated: "2026-06-27T04:44:24.04613595Z"
